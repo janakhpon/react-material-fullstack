@@ -1,0 +1,68 @@
+.card-land {}
+
+.card-image {
+    width: 50rem;
+    height: 50rem;
+}
+
+.card-image-item {
+    background: url('https://wallpapermemory.com/uploads/473/bear-wallpaper-hd-4k-352685.jpg');
+}
+
+
+@media (max-width: 700px) {
+
+    .card-image {
+        width: 25rem;
+        height: 25rem;
+    }
+
+}
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+    .card-image {
+        width: 25rem;
+        height: 25rem;
+    }
+
+}
+
+
+
+
+@keyframes one {
+
+    0%,
+    100% {}
+
+    5%,
+    95% {}
+
+    10%,
+    90% {}
+
+    15%,
+    85% {}
+
+    20%,
+    80% {}
+
+    25%,
+    75% {}
+
+    30%,
+    70% {}
+
+    35%,
+    65% {}
+
+    40%,
+    60% {}
+
+    45%,
+    55% {}
+
+
+    50% {}
+}
