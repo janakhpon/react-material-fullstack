@@ -1,0 +1,67 @@
+.card-signup {
+    display: inline-block;
+    padding: 32px 48px 0px 48px;
+    height: 65vh;
+    border: 1px solid #EEE;
+    border-radius: 0.8rem;
+    animation: one 30s ease-in-out infinite alternate;
+}
+
+.auth-text-color{
+    color: #FFF;
+    font-weight: bold;
+}
+
+
+@media (max-width: 700px) {
+    .card-signup {
+        display: inline-block;
+        padding: 32px 48px 0px 48px;
+        height: 85vh;
+        border: 1px solid #EEE;
+        border-radius: 0.8rem;
+        animation: one 20s ease-in-out infinite alternate;
+    }
+
+}
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+    .card-signup {
+        display: inline-block;
+        padding: 32px 48px 0px 48px;
+        height: 85vh;
+        border: 1px solid #EEE;
+        border-radius: 0.8rem;
+        animation: one 20s ease-in-out infinite alternate;
+    }
+}
+
+
+@keyframes one {
+
+    0%,
+    100% {
+        background: linear-gradient(-45deg, rgba(255, 0, 132, 1) 6%, rgba(171, 0, 178, 1) 38%, rgba(69, 0, 234, 1) 77%, rgba(30, 0, 255, 1) 92%);
+    }
+
+    10%,
+    90% {
+        background: linear-gradient(to left, rgba(72, 23, 128, 1) 0%, rgba(61, 50, 155, 1) 27%, rgba(44, 94, 199, 1) 70%, rgba(32, 124, 229, 1) 100%);
+    }
+
+    20%,
+    80% {
+        background: linear-gradient(-45deg, rgba(217, 50, 170, 1) 0%, rgba(191, 136, 173, 1) 28%, rgba(198, 123, 174, 1) 34%, rgba(218, 85, 178, 1) 52%, rgba(219, 83, 178, 1) 53%, rgba(49, 189, 154, 1) 68%);
+    }
+
+    40%,
+    60% {
+        background: linear-gradient(-45deg, rgba(73, 155, 234, 1) 0%, rgba(114, 124, 231, 1) 25%, rgba(182, 71, 225, 1) 67%, rgba(235, 29, 221, 1) 100%);
+    }
+
+
+    50% {
+        background: linear-gradient(-45deg, rgba(49, 189, 154, 1) 24%, rgba(150, 178, 190, 1) 38%, rgba(251, 166, 225, 1) 52%, rgba(191, 136, 173, 1) 72%, rgba(196, 121, 172, 1) 77%, rgba(217, 50, 170, 1) 100%);
+    }
+}
