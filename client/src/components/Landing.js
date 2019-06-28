@@ -18,7 +18,7 @@ class Landing extends React.Component {
               <i className="material-icons left">face</i>sign up
             </a>
             |
-            <a className="waves-effect waves-light btn-small" href="/login">
+            <a className="waves-effect waves-light btn-small" href="/signin">
               <i className="material-icons left">vpn_key</i>sign in
             </a>
           </div>
