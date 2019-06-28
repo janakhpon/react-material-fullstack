@@ -3,15 +3,16 @@ import "jquery";
 import M from "materialize-css";
 import "materialize-css/dist/js/materialize.js";
 import "materialize-css/dist/css/materialize.css";
-import "./Createtask.css";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { addTask, getTasks } from "../actions/taskActions";
 import { Collapsible, CollapsibleItem, Button } from "react-materialize";
-import logo from "../img/favicon.png";
 import "./Createtask.css";
 
 class Createtask extends React.Component {
   constructor() {
     super();
-    this.state = { name: "", address: "", dname: "", daddress: "", yes: false };
+    this.state = { title: "", description: "", deadline: "", yes: false };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -25,74 +26,59 @@ class Createtask extends React.Component {
       endingTop: "10%"
     };
     M.Modal.init(this.Modal, options);
-    var dataname = localStorage.getItem("name");
-    var dataddress = localStorage.getItem("address");
-
-    if (
-      dataname !== null &&
-      dataname !== "" &&
-      dataddress !== null &&
-      dataddress !== ""
-    ) {
-      this.setState({
-        dname: dataname,
-        daddress: dataddress,
-        yes: true
-      });
-    }
   }
 
   onChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.title]: e.target.value
     });
   }
 
   onSubmit(e) {
     e.preventDefault();
 
-    const vname = this.state.name;
-    const vaddress = this.state.address;
+    const { user } = this.props.auth;
 
-    // Save data to localStorage
-    localStorage.setItem("name", vname);
-    localStorage.setItem("address", vaddress);
+    const newTask = {
+      user: user.id,
+      title: this.state.title,
+      description: this.state.description,
+      deadline: this.state.deadline
+    };
+
+    this.props.addTask(newTask);
 
     this.setState({
-      name: "",
-      address: ""
+      title: "",
+      description: "",
+      deadline: ""
     });
   }
 
   onDelete = e => {
     e.preventDefault();
-    localStorage.removeItem("name");
-    localStorage.removeItem("address");
   };
 
-  onClear = e => {
-    e.preventDefault();
-    localStorage.clear();
-  };
+  onClear = e => {};
 
   render() {
     return (
       <div>
-        <div className="container">
-          <div className="row">
-            <div className="col s12 m12 l12">
+        <div classtitle="container">
+          <div classtitle="row">
+            <div classtitle="col s12 m12 l12">
               {this.state.yes ? (
-                <Collapsible className="collapsible" popout>
+                <Collapsible classtitle="collapsible" popout>
                   <CollapsibleItem
-                    className="teal lighten-2 collapsible-item"
-                    header={this.state.dname}
+                    classtitle="teal lighten-2 collapsible-item"
+                    header={this.state.deadline}
                     icon="filter_drama"
                     style={{ background: "black" }}
                   >
-                    {this.state.daddress}
-                    <div className="section" />
+                    {this.state.ddescription}
+                    <div classtitle="section" />
                     <hr />
-                    <div className="row center-align">
+                    <div classtitle="row center-align">
                       <Button waves onClick={this.onDelete}>
                         delete
                       </Button>
@@ -114,68 +100,82 @@ class Createtask extends React.Component {
             this.Modal = Modal;
           }}
           id="modal"
-          className="modal modal-container"
+          classtitle="modal modal-container"
         >
-          <div className="modal-content">
-            <div className="row">
-              <form className="col s12">
-                <div className="row">
-                  <div className="input-field col s12">
-                    <i className="material-icons prefix">face</i>
+          <div classtitle="modal-content">
+            <div classtitle="row">
+              <form classtitle="col s12">
+                <div classtitle="row">
+                  <div classtitle="input-field col s12">
+                    <i classtitle="material-icons prefix">face</i>
                     <input
                       id="input_text"
                       type="text"
-                      name="name"
+                      name="title"
                       data-length="10"
-                      value={this.state.name}
+                      value={this.state.title}
                       onChange={this.onChange}
                     />
-                    <label for="input_text">USER NAME</label>
+                    <label for="input_text">user name</label>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <i className="material-icons prefix">landscape</i>
+                <div classtitle="row">
+                  <div classtitle="input-field col s12">
+                    <i classtitle="material-icons prefix">landscape</i>
                     <textarea
                       id="icon_prefix2"
-                      name="address"
-                      className="materialize-textarea"
+                      name="description"
+                      classtitle="materialize-textarea"
                       data-length="120"
-                      value={this.state.address}
+                      value={this.state.description}
                       onChange={this.onChange}
                     />
-                    <label for="icon_prefix2">ADDRESS</label>
+                    <label for="icon_prefix2">description</label>
+                  </div>
+                </div>
+                <div classtitle="row">
+                  <div classtitle="input-field col s12">
+                    <i classtitle="material-icons prefix">face</i>
+                    <input
+                      id="input_text"
+                      type="text"
+                      name="deadline"
+                      data-length="15"
+                      value={this.state.deadline}
+                      onChange={this.onChange}
+                    />
+                    <label for="input_text">deadline</label>
                   </div>
                 </div>
               </form>
             </div>
           </div>
-          <div className="modal-footer black-foot">
+          <div classtitle="modal-footer black-foot">
             <button
               type="submit"
               onClick={this.onSubmit}
-              className="waves-effect waves-blue blue btn-flat text-white"
+              classtitle="waves-effect waves-blue blue btn-flat text-white"
             >
-              <i className="material-icons left">play_for_work</i>
+              <i classtitle="material-icons left">play_for_work</i>
               save
             </button>
             <a
               href="#!"
-              className="modal-close waves-effect waves-light red btn-flat  text-white"
+              classtitle="modal-close waves-effect waves-light red btn-flat  text-white"
             >
               {" "}
-              <i className="material-icons left">close</i>close
+              <i classtitle="material-icons left">close</i>close
             </a>
           </div>
         </div>
 
-        <div className="fixed-action-btn horizontal">
+        <div classtitle="fixed-action-btn horizontal">
           <a
             href="/"
-            className="waves-effect waves-light btn-floating btn-large red modal-trigger"
+            classtitle="waves-effect waves-light btn-floating btn-large red modal-trigger"
             data-target="modal"
           >
-            <i className="large material-icons">mode_edit</i>
+            <i classtitle="large material-icons">mode_edit</i>
             Modal
           </a>
         </div>
@@ -184,4 +184,13 @@ class Createtask extends React.Component {
   }
 }
 
-export default Createtask;
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors,
+  task: state.task
+});
+
+export default connect(
+  mapStateToProps,
+  { getTasks, addTask }
+)(Createtask);

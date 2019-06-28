@@ -2,6 +2,9 @@ import React from "react";
 import "jquery";
 import "materialize-css/dist/js/materialize.js";
 import "materialize-css/dist/css/materialize.css";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { registerUser } from "../actions/authActions";
 import PropTypes from "prop-types";
 import "./Signup.css";
 
@@ -20,11 +23,7 @@ class Signup extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
-    }
-  }
+  componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -148,6 +147,7 @@ class Signup extends React.Component {
                         type="submit"
                         name="btn_login"
                         className="col s12 btn btn-large waves-effect indigo"
+                        onClick={this.onSubmit}
                       >
                         SIGN UP
                       </button>
@@ -177,4 +177,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default Signup;
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(withRouter(Signup));
