@@ -13,7 +13,7 @@ import {
   Dropdown,
   NavItem
 } from "react-materialize";
-import './Navbar.css';
+import "./Navbar.css";
 
 class NavbarCon extends React.Component {
   render() {
@@ -60,14 +60,19 @@ class NavbarCon extends React.Component {
             </SideNav>
           </div>
         </NavItem>
-        <NavItem className="center-align">  
-          <Link  to="/createtask">
+        <NavItem className="center-align">
+          <Link to="/createtask">
             <i class="material-icons left">filter_list</i>
             Tasks
           </Link>
         </NavItem>
 
         <Dropdown
+          options={{
+            constrainWidth: true,
+            hover: false,
+            coverTrigger: false
+          }}
           trigger={
             <a href="/">
               <i class="material-icons left">settings</i>

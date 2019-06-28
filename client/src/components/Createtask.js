@@ -6,9 +6,15 @@ import "materialize-css/dist/css/materialize.css";
 import "./Createtask.css";
 import { Collapsible, CollapsibleItem, Button } from "react-materialize";
 import logo from "../img/favicon.png";
-import './Createtask.css';
+import "./Createtask.css";
 
 class Createtask extends React.Component {
+  constructor() {
+    super();
+    this.state = { name: "", address: "", dname: "", daddress: "", yes: false };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
   componentDidMount() {
     const options = {
       inDuration: 250,
@@ -19,55 +25,86 @@ class Createtask extends React.Component {
       endingTop: "10%"
     };
     M.Modal.init(this.Modal, options);
+    var dataname = localStorage.getItem("name");
+    var dataddress = localStorage.getItem("address");
+
+    if (
+      dataname !== null &&
+      dataname !== "" &&
+      dataddress !== null &&
+      dataddress !== ""
+    ) {
+      this.setState({
+        dname: dataname,
+        daddress: dataddress,
+        yes: true
+      });
+    }
   }
+
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+
+    const vname = this.state.name;
+    const vaddress = this.state.address;
+
+    // Save data to localStorage
+    localStorage.setItem("name", vname);
+    localStorage.setItem("address", vaddress);
+
+    this.setState({
+      name: "",
+      address: ""
+    });
+  }
+
+  onDelete = e => {
+    e.preventDefault();
+    localStorage.removeItem("name");
+    localStorage.removeItem("address");
+  };
+
+  onClear = e => {
+    e.preventDefault();
+    localStorage.clear();
+  };
 
   render() {
     return (
       <div>
         <div className="container">
           <div className="row">
-            <div className="col s12 m8 l9">
-              <Collapsible className="collapsible" popout>
-                <CollapsibleItem
-                  className="teal lighten-2 collapsible-item"
-                  header="Better safe than sorry. That's my motto."
-                  icon="filter_drama"
-                  style={{ background: "black" }}
-                >
-                  Better safe than sorry. That's my motto.
-                  <div className="section"></div>
-                  <hr></hr>
-                  <div className="row center-align">
-                    <Button waves>update</Button>
-                    <Button waves>completed</Button>
-                  </div>
-                </CollapsibleItem>
-              </Collapsible>
-            </div>
-            <div className="col s12 m4 l3">
-              <div className="card">
-                <div className="card-image waves-effect waves-block waves-light">
-                  <img className="activator" src={logo} alt="" />
-                </div>
-                <div className="card-content">
-                  <span className="card-title activator grey-text text-darken-4">
-                    Card Title
-                    <i className="material-icons right">more_vert</i>
-                  </span>
-                  <p>
-                    <a href="/">This is a link</a>
-                  </p>
-                </div>
-                <div className="card-reveal">
-                  <span className="card-title grey-text text-darken-4">
-                    Card Title<i className="material-icons right">close</i>
-                  </span>
-                  <p>
-                    Here is some more information about this product that is
-                    only revealed once clicked on.
-                  </p>
-                </div>
-              </div>
+            <div className="col s12 m12 l12">
+              {this.state.yes ? (
+                <Collapsible className="collapsible" popout>
+                  <CollapsibleItem
+                    className="teal lighten-2 collapsible-item"
+                    header={this.state.dname}
+                    icon="filter_drama"
+                    style={{ background: "black" }}
+                  >
+                    {this.state.daddress}
+                    <div className="section" />
+                    <hr />
+                    <div className="row center-align">
+                      <Button waves onClick={this.onDelete}>
+                        delete
+                      </Button>
+                      <Button waves onClick={this.onClear}>
+                        clear
+                      </Button>
+                    </div>
+                  </CollapsibleItem>
+                </Collapsible>
+              ) : (
+                <p>sorry no data in localStorage</p>
+              )}
             </div>
           </div>
         </div>
@@ -77,49 +114,54 @@ class Createtask extends React.Component {
             this.Modal = Modal;
           }}
           id="modal"
-          className="modal"
+          className="modal modal-container"
         >
           <div className="modal-content">
             <div className="row">
               <form className="col s12">
                 <div className="row">
                   <div className="input-field col s12">
-                    <i className="material-icons prefix">mode_edit</i>
-                    <input id="input_text" type="text" data-length="10" />
-                    <label for="input_text">Input text</label>
+                    <i className="material-icons prefix">face</i>
+                    <input
+                      id="input_text"
+                      type="text"
+                      name="name"
+                      data-length="10"
+                      value={this.state.name}
+                      onChange={this.onChange}
+                    />
+                    <label for="input_text">USER NAME</label>
                   </div>
                 </div>
                 <div className="row">
                   <div className="input-field col s12">
-                    <i className="material-icons prefix">mode_edit</i>
+                    <i className="material-icons prefix">landscape</i>
                     <textarea
                       id="icon_prefix2"
+                      name="address"
                       className="materialize-textarea"
                       data-length="120"
+                      value={this.state.address}
+                      onChange={this.onChange}
                     />
-                    <label for="icon_prefix2">First Name</label>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <i className="material-icons prefix">mode_edit</i>
-                    <input type="date" className="datepicker" />
-                    <label for="icon_prefix2">pick a date</label>
+                    <label for="icon_prefix2">ADDRESS</label>
                   </div>
                 </div>
               </form>
             </div>
           </div>
-          <div className="modal-footer">
+          <div className="modal-footer black-foot">
             <button
               type="submit"
-              className="waves-effect waves-green btn-flat"
+              onClick={this.onSubmit}
+              className="waves-effect waves-blue blue btn-flat text-white"
             >
-              <i className="material-icons left">close</i>close
+              <i className="material-icons left">play_for_work</i>
+              save
             </button>
             <a
               href="#!"
-              className="modal-close waves-effect waves-green btn-flat"
+              className="modal-close waves-effect waves-light red btn-flat  text-white"
             >
               {" "}
               <i className="material-icons left">close</i>close
