@@ -15,7 +15,7 @@ class Taskitem extends React.Component {
   render() {
     const { task, auth } = this.props;
     return ( 
-          <div className="col s12 m12 l12">
+          <div className="col s12 col m12 col l12">
             <Collapsible className="collapsible" popout>
               <CollapsibleItem
                 className="teal lighten-2 collapsible-item"
