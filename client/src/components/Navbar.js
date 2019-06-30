@@ -37,7 +37,7 @@ class NavbarCon extends React.Component {
               className="sidenav-container"
               trigger={
                 <a href="/">
-                  <img src={user.avator} alt="" className="circle nav-img" />
+                  <img src={user.avatar} alt="" className="circle nav-img" />
                   <label className="hide-on-large-only name right nav-profile">
                     {user.name}
                   </label>
@@ -48,13 +48,13 @@ class NavbarCon extends React.Component {
               <SideNavItem
                 userView
                 user={{
-                  background: `${user.avator}`,
-                  image: `${user.avator}`,
+                  background: "https://placeimg.com/640/480/tech",
+                  image: `${user.avatar}`,
                   name: `${user.name}`
                 }}
               />
               <SideNavItem href="#!icon" icon="cloud">
-                minchanhtutoo@gmail.com
+                {user.email}
               </SideNavItem>
               <SideNavItem href="#!icon" icon="cloud">
                 Myanmar,mawlamyine
