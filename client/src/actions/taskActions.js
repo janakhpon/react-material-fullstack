@@ -33,7 +33,7 @@ export const addTask = TaskData => dispatch => {
 export const getTasks = () => dispatch => {
   dispatch(setTaskLoading());
   axios
-    .get("/api/tasks")
+    .get('/api/tasks')
     .then(res =>
       dispatch({
         type: GET_TASKS,
