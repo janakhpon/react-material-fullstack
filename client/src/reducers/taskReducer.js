@@ -7,8 +7,8 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  TASKs: [],
-  TASK: {},
+  tasks: [],
+  task: {},
   loading: false
 };
 
@@ -22,24 +22,24 @@ export default function(state = initialState, action) {
     case GET_TASKS:
       return {
         ...state,
-        TASKs: action.payload,
+        tasks: action.payload,
         loading: false
       };
     case GET_TASK:
       return {
         ...state,
-        TASK: action.payload,
+        task: action.payload,
         loading: false
       };
     case ADD_TASK:
       return {
         ...state,
-        TASKs: [action.payload, ...state.TASKs]
+        tasks: [action.payload, ...state.tasks]
       };
     case DELETE_TASK:
       return {
         ...state,
-        TASKs: state.TASKs.filter(TASK => TASK._id !== action.payload)
+        tasks: state.tasks.filter(task => task._id !== action.payload)
       };
     default:
       return state;
